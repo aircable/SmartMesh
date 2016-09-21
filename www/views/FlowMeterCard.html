@@ -1,0 +1,20 @@
+
+<md-list-item ng-repeat="device in devices | flowfilter:device" ng-controller="flowCtrl" ng-class="{true:'greyed item', false:'item'}[device.edit]">
+    <md-card>
+        <md-card-content layout="column">
+            <div>
+                <strong>AquaTracer: {{device.source.toString(16).toUpperCase()}}</strong>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{device.name}}
+            </div>
+            <p></p>
+
+            <md-input-container md-no-float="" class="icon-title">
+                <md-icon md-svg-src="waterdrop"></md-icon>
+                <input type="text" placeholder="SSID"
+                       ng-readonly="true" aria-label="flow" ng-model="device.flow">
+            </md-input-container>
+
+        </md-card-content>
+    </md-card>
+    <div class="overlay"></div>
+</md-list-item>

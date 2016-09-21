@@ -1,0 +1,32 @@
+<!--View Information-->
+<!--View name : Serial Terminal-->
+<!--Controller name : console-->
+<!--State name : app.terminal-->
+<!--URL : #app/terminal-->
+<div id="fs-container"><
+<ion-view title="SmartMesh Sniffer">
+    <!--menu header section-->
+    <ion-nav-buttons side="left">
+        <a ng-click="navigateTo( 'app.meshnodes' )" class="button back-button buttons button-clear header-item nav-back-btn">
+            <i class="ion-android-arrow-back"></i>
+        </a>
+    </ion-nav-buttons><!--end left button on navigation bar-->
+
+
+    <!--social sign up section-->
+    <ion-content ng-controller="snifferCtrl" id="mcp-list" scroll-glue>
+        <ion-scroll direction="y">
+            <ion-list>
+                <ion-item ng-repeat="myMCP in mcps | snifffilter"
+                          class="my-item"
+                          class="item-remove-animate"
+                          ng-init="$last && scrollBottom()"
+                          >
+                    <p style="font-size: 0.8em">{{myMCP}}</p>
+                </ion-item>
+            </ion-list>
+        </ion-scroll>
+    </ion-content>
+
+</ion-view>
+</div>

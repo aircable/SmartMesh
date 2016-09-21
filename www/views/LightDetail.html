@@ -1,0 +1,89 @@
+<!--View Information-->
+<!--View name : Fake Sign Up-->
+<!--State name : app.fakeSignUp-->
+<!--URL : #app/fakeSignUp-->
+
+<!-- smartdimmer.source
+// smartdimmer.lightlevel
+// smartdimmer.temperature
+// smartdimmer.ambient
+// smartdimmer.battery
+// smartdimmer.usepower
+// smartdimmer.ontime
+// smartdimmer.dimmerenabled
+// smartdimmer.defaultlight
+// smartdimmer.nightlight
+// smartdimmer.threshold
+// smartdimmer.porch
+// smartdimmer.offtimer -->
+
+<ion-view title="Material Design">
+    <!--left button on navigation bar-->
+    <ion-nav-buttons side="left">
+        <a ng-click="$ionicGoBack()" class="button back-button buttons button-clear header-item nav-back-btn">
+            <i class="ion-android-arrow-back"></i>
+        </a>
+    </ion-nav-buttons><!--end left button on navigation bar-->
+
+    <!--social sign up section-->
+    <ion-content id="node-detail-content" ng-controller="lightDetailCtrl">
+
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2 class="light">SmartDimmer Settings ID:{{device.source.toString(16).toUpperCase()}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="close" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-list>
+            <md-list-item>
+                <md-icon md-svg-src="device.dimmable"></md-icon>
+                <p>Dimming Enabled</p>
+                <md-switch class="md-primary" ng-model="device.dimmable" aria-label="dimming"></md-switch>
+            </md-list-item>
+
+            <md-list-item>
+                <md-icon md-svg-src="bulb"></md-icon>
+                <p>Default Brigthness </p>
+                <label>{{device.defaultlight}}</label>
+                <md-slider flex min="0" max="100" step="10" ng-model="device.defaultlight" aria-label="default" class="md-primary"></md-slider>
+            </md-list-item>
+
+            <md-list-item>
+                <md-icon md-svg-src="moon"></md-icon>
+                <p>Night Light </p>
+                <label>{{device.nightlight}}</label>
+                <md-slider flex min="0" max="15" step="1" ng-model="device.nightlight" aria-label="night" class="md-primary"></md-slider>
+            </md-list-item>
+
+            <md-list-item>
+                <md-icon md-svg-src="moon"></md-icon>
+                <p>Threshold </p>
+                <label>{{device.threshold}}</label>
+                <md-slider flex min="0" max="30" step="1" ng-model="device.threshold" aria-label="thres" class="md-primary"></md-slider>
+            </md-list-item>
+
+            <md-list-item>
+                <md-icon md-svg-src="home"></md-icon>
+                <p>Porchlight</p>
+                <md-switch class="md-primary" ng-model="device.porch" aria-label="porch"></md-switch>
+            </md-list-item>
+
+            <md-list-item>
+                <md-icon md-svg-src="history"></md-icon>
+                <p>Switch-off Time</p>
+                <md-input-container>
+                    <input ng-model="device.offtimer" type="number" step="10" max="90" min="0" maxlength="2" aria-label="timer">
+                </md-input-container>
+            </md-list-item>
+        </md-list>
+
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button md-autofocus ng-click="saveLight( device )" class="md-raised md-button md-default-theme material-background">
+                SAVE</md-button>
+        </md-dialog-actions>
+
+    </ion-content>
+</ion-view>

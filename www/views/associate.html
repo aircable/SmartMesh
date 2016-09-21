@@ -1,0 +1,62 @@
+<!--View Information-->
+<!--View name : Mesh Node List-->
+<!--Controller name : nodeListCtrl-->
+<!--Controller path : www/js/controllers.js-->
+<!--State name : app.nodelist-->
+<!--URL : #app/nodelist-->
+
+<ion-view title="New Device Association">
+    <!--menu header section-->
+    <ion-nav-buttons side="left">
+        <!-- Toggle left side menu -->
+        <button menu-toggle="left" class="button button-icon icon ion-navicon" ng-click="toggleLeft()"></button>
+    </ion-nav-buttons>
+    <!--right button on navigation bar-->
+    <ion-nav-buttons side="right" >
+        <a class="button back-button buttons button-clear header-item nav-back-btn">
+            <md-icon id="bluetooth" md-svg-src="img/icons/bluetooth.svg"></md-icon>
+            <md-icon id="wave-logo" md-svg-src="img/icons/wave-logo.svg"></md-icon>
+        </a>
+    </ion-nav-buttons><!--end right button on navigation bar-->
+
+    <!--note list section-->
+    <ion-content id="new-content">
+        <!--list section-->
+        <ul class="list">
+            <li ng-repeat="device in devices" ng-controller="associationCtrl">{{angular.toJson(device)}}</li>
+        </ul>
+
+        <md-list-item ng-repeat="device in devices | assocfilter" ng-controller="associationCtrl">
+            <md-card>
+                <md-card-content layout="column">
+                    <div>
+                        <strong>New Mesh Node: {{device.name}}</strong>
+                        <p>{{device.source}}</p>
+                    </div>
+
+                    <md-dialog-actions layout="row" class="md-whiteframe-2dp">
+                        <md-button ng-click="associate( device )" class="md-button md-accent">
+                            ASSOCIATE</md-button>
+                    </md-dialog-actions>
+
+                </md-card-content>
+            </md-card>
+        </md-list-item>
+        <!--end list section-->
+    </ion-content><!--end note list section-->
+
+    <!--footer fab bar-->
+    <!--div class="footer-fab-bar">
+        <a class="md-button md-accent md-fab fab-footer" ng-click="navigateTo('app.notedetail')" aria-label="Add">
+            <i class="ion-android-create"></i>
+        </a>
+    </div-->
+    <!--end footer fab bar-->
+
+    <!--loading progress-->
+    <!--div id="note-list-loading-progress" class="loading-progress fade-in">
+        <ion-spinner ng-if="!isAndroid" class="progress-circular"></ion-spinner>
+        <md-progress-circular ng-if="isAndroid" md-mode="indeterminate"></md-progress-circular>
+    </div-->
+    <!--end loading progress-->
+</ion-view>

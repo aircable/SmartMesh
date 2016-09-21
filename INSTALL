@@ -1,0 +1,80 @@
+#info to setup ionic environment
+# https://www.airpair.com/javascript/posts/a-year-using-ionic-to-build-hybrid-applications
+
+# get app packages
+sudo npm install -g cordova ionic gulp bower
+
+# ionic material
+bower install ionic-material
+# RobotoDraft, font face kit
+bower install robotodraft
+# ionic material input plugin
+bower install ion-md-input
+# angular slider
+bower install --save angularjs-slider
+# angular material, for md-slider
+# not that yet bower install angular-material
+# install material design icons for selfhosting
+bower install material-design-icons
+
+# icons: https://design.google.com/icons/
+
+# Plugins
+ionic plugin add ionic-plugin-keyboard@1.0.8
+ionic plugin add cordova-plugin-device@1.1.1
+ionic plugin add cordova-plugin-console@1.0.2
+ionic plugin add cordova-plugin-splashscreen@3.1.0
+ionic plugin add cordova-plugin-whitelist@1.2.1
+ionic plugin add cordova-plugin-transport-security@0.1.1
+ionic plugin add cordova-plugin-inappbrowser@1.1.1
+
+ionic plugin add com.unarin.cordova.beacon
+ionic plugin add cordova-plugin-ble-central
+ionic plugin add cordova-plugin-x-toast
+
+# iBeacon plugin 
+cordova plugin add https://github.com/petermetz/cordova-plugin-ibeacon.git
+# fix ble.js in plugin cordova-plubin-ble-central
+# stringToArrayBuffer return Uint8Array and not ArrayBuffer
+# wrapper for Angular
+https://github.com/nraboy/ng-cordova-beacon
+
+# MQTT https://github.com/mqttjs/MQTT.js.git
+npm install mqtt
+browserify mqtt.js -s mqtt > ../../ionic-material-mesh/www/js/mqtt.js 
+
+#install MQTT server and run
+# building MQTT server
+http://goochgooch.co.uk/2014/08/01/building-mosquitto-1-4/
+# or installing via brew
+#run
+/usr/local/opt/mosquitto/sbin/mosquitto -c /usr/local/etc/mosquitto/mqtt.conf
+
+# splash screen, use icon.psd and splash.psd
+ionic resources (--icon --splash)
+
+# running ionic app in IOS:
+ionic run ios -device -debug
+# run app with Xcode 
+ionic prepare ios --minify
+# open project in Xcode
+
+# suppose to run on browser
+ionic build browser --minify
+
+# publish app in the AppStore using XCode
+http://virteom.com/how-to-create-an-ipa-file-using-xcode
+# publish on Google Play
+http://ionicframework.com/docs/guide/publishing.html
+
+# get running as a web server
+# ionic platform add browser
+# cd platforms/browser
+# install static
+# npm install connect serve-static
+# create file server.js
+# var connect = require('connect');
+# var serveStatic = require('serve-static');
+# connect().use(serveStatic(__dirname)).listen(8080)
+# run server
+# node server.js &

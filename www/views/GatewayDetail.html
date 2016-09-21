@@ -1,0 +1,90 @@
+<!--View Information-->
+<!--View name : Settings-->
+<!--State name : settings-->
+<!--URL : #settings-->
+
+<ion-view title="Gateway Configuration">
+    <!--left button on navigation bar-->
+    <ion-nav-buttons side="left">
+        <a ng-click="$ionicGoBack()" class="button back-button buttons button-clear header-item nav-back-btn">
+            <i class="ion-android-arrow-back"></i>
+        </a>
+    </ion-nav-buttons><!--end left button on navigation bar-->
+
+    <div class="material-background" id="toggle-menu-left-header">
+        <!--menu header section-->
+        <div class="menu-left-header">
+            <img class="user-img" src="img/AIRcableWaves.png">
+
+            <p>
+                <span class="title">Gateway Configuration and Credentials</span>
+                <br/>
+                <span class="sub-title">Gateway ID: {{device.source.toString(16).toUpperCase()}}</span>
+
+            </p>
+        </div><!--end menu header section-->
+    </div> <!--menu content section-->
+
+    <ion-content id="settings" class="bg-white">
+        <form name="form.GatewayForm" class="credentials" nonvalidate>
+            <!--div class="app-icon">
+                <img src="img/logo.png" class="md-card-image">
+            </div>
+            <div class="sub-header">Bluetooth SmartMesh Settings</div-->
+            <div id="map_canvas"></div>
+            <!--input section-->
+            <md-input-container md-no-float="" class="icon-title">
+                <md-icon md-svg-src="antenna"></md-icon>
+                <input type="text" placeholder="SSID of your AP"
+                       aria-label="ssid" ng-model="device.ssid">
+            </md-input-container>
+
+            <md-input-container md-no-float="" class="icon-title">
+                <md-icon md-svg-src="vpn_key"></md-icon>
+                <input type="password" placeholder="AccessPoint key"
+                       aria-label="key" ng-model="device.key">
+            </md-input-container>
+
+            <md-input-container md-no-float="" class="icon-title">
+                <md-icon md-svg-src="mail"></md-icon>
+                <input type="email" autocorrect="off"
+                       placeholder="your AIRcable subscription email" ng-model="device.email">
+            </md-input-container>
+
+            <md-input-container md-no-float="" class="icon-title">
+                <md-icon md-svg-src="lock_open"></md-icon>
+                <input placeholder="Password" type="password" ng-model="device.password">
+            </md-input-container>
+
+            <md-input-container md-no-float="" class="icon-title">
+                <md-icon md-svg-src="cloud_queue"></md-icon>
+                <input type="url" autocomplete="on"
+                       placeholder="Cloud Server URL" ng-model="device.server">
+            </md-input-container>
+
+            <md-input-container md-no-float="" class="icon-title">
+                <md-icon md-svg-src="open_browser"></md-icon>
+                <input type="text" autocomplete="on"
+                       placeholder="Cloud Server Device Port" ng-model="device.devport" disabled>
+            </md-input-container>
+
+            <md-dialog-actions layout="row" >
+                <span flex></span>
+                <md-button md-autofocus ng-click="configureGateway( device )" class="md-raised md-button md-default-theme material-background">
+                    SAVE</md-button>
+            </md-dialog-actions>
+
+
+
+        </form>
+    </ion-content><!--end social sign up section-->
+
+
+    <!--loading progress-->
+    <div id="gateway-config-progress" class="loading-progress fade-in">
+        <ion-spinner ng-if="!isAndroid" class="progress-circular"></ion-spinner>
+        <md-progress-circular ng-if="isAndroid" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <!--end loading progress-->
+</ion-view>
+

@@ -1,0 +1,34 @@
+
+<md-list-item ng-repeat="device in devices | gatewayfilter " ng-controller="GatewayCtrl"  ng-class="{true:'greyed item', false:'item'}[device.edit]">
+    <md-card>
+        <md-card-content>
+            <div class="card-content">
+                <div>
+                    <strong>Gateway: {{device.source.toString(16).toUpperCase()}}</strong>
+                    <span flex></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{device.name}}
+                </div>
+
+                <p></p>
+
+                <md-input-container md-no-float="" class="icon-title">
+                    <md-icon md-svg-src="antenna"></md-icon>
+                    <input type="text" placeholder="SSID"
+                           ng-readonly="true" aria-label="ssid" ng-model="device.ssid">
+                </md-input-container>
+                <span flex></span><small>{{device.date}}</small>
+                <div class="item tabs tabs-secondary tabs-icon-right" ng-click="navigateTo( 'app.gatewaydetail' , device )">
+                    <div class="tab-item stable-bg positive-900">
+                        <md-icon id="signal{{device.source}}" md-svg-src="signal"></md-icon>
+                        {{device.status}}
+                    </div>
+                    <div class="tab-item stable-bg positive-900">
+                        <!--gateway plugin='{{plugin}}'></gateway-->{{device.server}}
+                        <i class="icon ion-ios-home-outline"></i>
+                    </div>
+                </div>
+
+             </div>
+        </md-card-content>
+    </md-card>
+</md-list-item>

@@ -1,0 +1,72 @@
+<md-list-item ng-repeat="device in devices | lightfilter2 " ng-controller="LightCtrl" ng-class="{true:'greyed item', false:'item'}[device.edit]">
+    <md-card>
+        <md-card-content>
+            <div class="card-content">
+                <div>
+                        <!--span class="avatar" style="background-image: url('img/lightbulb.png');"></span-->
+                    <strong>Source: {{device.source.toString(16).toUpperCase()}}</strong>
+                    <md-slider flex min="0" max="100" ng-model="device.data[0]" aria-label="level"
+                               id="device.source" on-release="light( device )" class="md-primary">
+                    </md-slider>
+                </div>
+
+                <div class="item tabs tabs-secondary tabs-icon-right">
+                    <div class="tab-item stable-bg assertive">
+                        <i class="icon ion-thermometer"></i>
+                        {{device.data[1]}}℃/{{device.data[1]*1.8+32}}°F
+                    </div>
+                    <div class="tab-item stable-bg positive-900">
+                        <i class="icon ion-ios-sunny-outline"></i>
+                        {{device.data[2]*10}}
+                    </div>
+                    <div class="tab-item stable-bg positive-900">
+                        <i class="icon ion-battery-half"></i>
+                        {{device.data[3]/10}}V
+                    </div>
+                    <div class="tab-item stable-bg positive-900">
+                        <i class="icon ion-power"></i>
+                        {{(device.data[4]*256+device.data[5])/10}}W
+                    </div>
+                    <div class="tab-item stable-bg positive-900">
+                        {{(device.data[6]*256+device.data[7])}}
+                        <i class="icon ion-ios-clock-outline"></i>
+                    </div>
+                </div>
+
+
+                <div class="item tabs tabs-secondary tabs-icon-left" ng-click="navigateTo( 'app.nodedetail' , device )">
+                    <div class="tab-item stable-bg positive-900">
+                        {{(device.data[8]*256+device.data[9])}}
+                        <i class="icon ion-ios-people-outline"></i>
+                    </div>
+                    <div class="tab-item stable-bg positive-900">
+                        {{device.data[10]}}
+                        <i class="icon ion-eye-disabled"></i>
+                    </div>
+                    <div class="tab-item stable-bg positive-900">
+                        {{device.data[11]}}
+                        <i class="icon ion-ios-lightbulb-outline"></i>
+                    </div>
+                    <div class="tab-item stable-bg positive-900">
+                        {{device.data[12]}}
+                        <i class="icon ion-ios-moon-outline"></i>
+                    </div>
+                    <div class="tab-item stable-bg positive-900">
+                        {{device.data[13]}}
+                        <i class="icon ion-ios-bolt-outline"></i>
+                    </div>
+                    <div class="tab-item stable-bg positive-900">
+                        {{device.data[14]}}
+                        <i class="icon ion-ios-timer-outline"></i>
+                    </div>
+                    <div class="tab-item stable-bg positive-900">
+                        {{device.data[15]}}
+                        <i class="icon ion-ios-home-outline"></i>
+                    </div>
+                </div>
+
+            </div>
+        </md-card-content>
+    </md-card>
+    <div class="overlay"></div>
+</md-list-item>

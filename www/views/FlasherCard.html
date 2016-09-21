@@ -1,0 +1,40 @@
+
+<md-list-item ng-repeat="device in devices | flasherfilter:device" ng-controller="flasherCtrl" ng-class="{true:'greyed item', false:'item'}[device.edit]">
+    <md-card>
+        <md-card-content layout="column">
+            <div>
+                <strong>DinnerTime: {{device.source.toString(16).toUpperCase()}}</strong>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{device.name}}
+            </div>
+
+            <div layout="row" class="md-whiteframe-4dp">
+                <div flex="60">
+                    <md-select placeholder="Flashes" ng-model="flashes" aria-label="flashes" flex>
+                        <md-option ng-repeat="item in flashlist" ng-value="{{item.id}}"
+                                   ng-selected="(item.id == flashes) ? true : false" >
+                            {{item.flash}}
+                        </md-option>
+                    </md-select>
+                </div>
+                <div flex="60" flex-offset="40" style="font-size:14px" >
+                    <md-select placeholder="Beeps" ng-model="beeps" aria-label="beeps" flex>
+                        <md-option ng-repeat="item in beeplist" ng-value="{{item.id}}"
+                                   ng-selected="(item.id == beeps) ? true : false" >
+                            {{item.beep}}
+                        </md-option>
+                    </md-select>
+                </div>
+            </div>
+
+            <md-dialog-actions layout="row" class="md-whiteframe-2dp">
+                <md-icon id="flasher" md-svg-src="img/icons/flasher.svg"></md-icon>
+                <md-button id="trigger_button" aria-label="trigger" ng-click="callDinner( device )" class="md-primary md-raised" style="width:250px;">
+                    {{device.trigger_text}}
+                </md-button>
+            </md-dialog-actions>
+
+
+        </md-card-content>
+    </md-card>
+    <div class="overlay"></div>
+</md-list-item>

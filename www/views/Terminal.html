@@ -1,0 +1,70 @@
+<!--View Information-->
+<!--View name : Serial Terminal-->
+<!--Controller name : console-->
+<!--State name : app.terminal-->
+<!--URL : #app/terminal-->
+
+<ion-view title="SmartMesh Serial Port Terminal">
+    <!--menu header section-->
+    <ion-nav-buttons side="left">
+        <a ng-click="$ionicGoBack()" class="button back-button buttons button-clear header-item nav-back-btn">
+            <i class="ion-android-arrow-back"></i>
+        </a>
+    </ion-nav-buttons><!--end left button on navigation bar-->
+
+
+    <!--social sign up section-->
+    <ion-content  ng-controller="serialTerminalCtrl">
+
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2 class="light">Serial Group ID: {{serialid.toString(16).toUpperCase()}}</h2>
+                <span flex></span>
+                <!--md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="close" aria-label="Close dialog"></md-icon>
+                </md-button-->
+            </div>
+        </md-toolbar>
+
+        <md-input-container md-no-float="" class="icon-title">
+            <md-icon md-svg-src="mesh"></md-icon>
+            <input type="number" placeholder="NodeID"
+                   aria-label="serialsource" ng-model="destination">
+        </md-input-container>
+
+
+            <div class="list">
+                <form ng-submit="addListItem( customQuote, device )" name="customQuoteForm">
+                    <div class="item item-input-inset">
+                        <label class="item-input-wrapper">
+                            <input type="text" autocapitalize="none" autocorrect="off" placeholder="command line" ng-model="customQuote" required>
+                        </label>
+                        <md-checkbox aria-label="ECHO" ng-model="echo"
+                                     style="font-size:10px;padding-left:10px;margin:1px;">E
+                        </md-checkbox>
+                        <md-checkbox aria-label="CR" ng-model="cr"
+                            style="font-size:10px;padding-left:10px;margin:1px;">CR
+                        </md-checkbox>
+                        <md-checkbox aria-label="LF" ng-model="lf"
+                            style="font-size:10px;padding-left:10px;margin:1px;">LF
+                        </md-checkbox>
+                        <button class="button button-small" ng-disabled="customQuoteForm.$invalid">
+                            Send
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        <ion-scroll direction="y" style="width: 100%; height: 200px !important;">
+            <ion-list ng-style="{'max-height':'250px'}">
+                <ion-item ng-repeat="yourQuote in array track by $index"
+                          class="my-item"
+                          class="item-remove-animate">
+                    <p>{{yourQuote}}</p>
+                </ion-item>
+            </ion-list>
+        </ion-scroll>
+
+    </ion-content>
+
+</ion-view>

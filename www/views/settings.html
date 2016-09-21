@@ -1,0 +1,75 @@
+<!--View Information-->
+<!--View name : Settings-->
+<!--State name : settings-->
+<!--URL : #settings-->
+
+<ion-view title="Settings">
+    <!--left button on navigation bar-->
+    <ion-nav-buttons side="right">
+        <a class="button back-button buttons button-clear header-item nav-back-btn">
+            <md-icon id="bluetooth" md-svg-src="img/icons/bluetooth.svg"></md-icon>
+            <md-icon id="wave-logo" md-svg-src="img/icons/wave-logo.svg"></md-icon>
+        </a>
+    </ion-nav-buttons><!--end left button on navigation bar-->
+    <!--menu section-->
+    <div class="material-background" id="toggle-menu-left-header">
+        <!--menu header section-->
+        <div class="menu-left-header">
+            <img class="user-img" src="img/AIRcableWaves.png">
+
+            <p>
+                <span class="title">SmartMesh Credentials</span>
+                <br/>
+                <span class="sub-title">Your Node ID: {{credentials.ownid.toString(16)}}</span>
+            </p>
+        </div><!--end menu header section-->
+    </div> <!--menu content section-->
+    <!--social sign up section-->
+    <ion-content id="settings" class="bg-white">
+        <form name="form.AuthForm" class="credentials" nonvalidate>
+            <!--div class="app-icon">
+                <img src="img/logo.png" class="md-card-image">
+            </div>
+            <div class="sub-header">Bluetooth SmartMesh Settings</div-->
+            <!--input section-->
+            <md-input-container md-no-float="" class="icon-title">
+                <md-icon md-svg-src="vpn_key"></md-icon>
+                <input type="text" placeholder="type in a passphrase"
+                       ng-readonly="credentials.edit" aria-label="Readonly field" ng-model="l_cred.l_passphrase">
+            </md-input-container>
+
+            <md-input-container md-no-float="" class="icon-title">
+                <md-icon md-svg-src="mail"></md-icon>
+                <input type="email" autocorrect="off"
+                       placeholder="your AIRcable subscription email" ng-model="l_cred.l_email">
+            </md-input-container>
+
+            <md-input-container md-no-float="" class="icon-title">
+                <md-icon md-svg-src="lock_open"></md-icon>
+                <input placeholder="Password" type="password" ng-model="l_cred.l_password">
+            </md-input-container>
+
+            <md-input-container md-no-float="" class="icon-title">
+                <md-icon md-svg-src="cloud_queue"></md-icon>
+                <input type="text" autocomplete="off"
+                        placeholder="Cloud Server URL" ng-model="l_cred.l_host">
+            </md-input-container>
+
+            <md-input-container md-no-float="" class="icon-title">
+                <md-icon md-svg-src="open_browser"></md-icon>
+                <input type="text" autocomplete="on"
+                       placeholder="Cloud Server Port" ng-model="l_cred.l_port">
+            </md-input-container>
+
+            <md-dialog-actions layout="row" >
+                <md-button ng-click="deleteKey()" class="md-button md-accent">
+                    DELETE</md-button>
+                <span flex></span>
+                <md-button md-autofocus ng-click="generateKey( l_cred )" class="md-raised md-button md-default-theme material-background">
+                    SAVE</md-button>
+            </md-dialog-actions>
+
+        </form>
+    </ion-content><!--end social sign up section-->
+</ion-view>
+

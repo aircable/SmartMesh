@@ -1,0 +1,34 @@
+<md-list-item ng-repeat="device in devices | lightfilter3 " ng-controller="LightCtrl">
+    <md-card>
+        <md-card-content>
+
+                <div>
+                    <strong>Generic CSRlight {{device.source.toString(16).toUpperCase()}}</strong>
+                    <md-slider flex min="0" max="100" ng-model="device.lightlevel" aria-label="level"
+                               id="device.source" on-release="light( device )" class="md-primary">
+                    </md-slider>
+                </div>
+
+            <div class="item tabs tabs-secondary tabs-icon-right">
+                <div class="tab-item stable-bg assertive">
+                <md-input-container md-no-float="" class="icon-title">
+                    <!--label>Node ID must be between 0x8000 and 0xBFFF</label-->
+                    <md-icon md-svg-src="bulb"></md-icon>
+                    <input type="text" pattern="[a-fA-F0-9]{4}" placeholder="New Node ID"
+                           aria-label="nodeid" ng-model="newid">
+                </md-input-container>
+                </div>
+            </div>
+
+                <md-dialog-actions layout="row" class="md-whiteframe-2dp">
+                    <md-button ng-click="setID( device )" class="md-button md-accent">
+                        SET NODE ID</md-button>
+                    <span flex></span>
+                    <md-button md-autofocus class="md-button md-accent" ng-click="removeCSRlight( device )">
+                        REMOVE</md-button>
+                </md-dialog-actions>
+
+        </md-card-content>
+    </md-card>
+    <div class="overlay"></div>
+</md-list-item>

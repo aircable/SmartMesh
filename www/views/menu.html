@@ -1,0 +1,80 @@
+<!--View Information-->
+<!--View name : Menu-->
+<!--Controller name : menuCtrl-->
+<!--Controller path : www/views/menu/js/controllers.js-->
+<!--State name : app-->
+<!--URL : #app-->
+
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-balanced  material-background-nav-bar">
+            <ion-nav-buttons side="left">
+                <a class="button button-icon button-clear ion-navicon" menu-toggle="left" ng-click="toggleLeft()"></a>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent"></ion-nav-view>
+    </ion-side-menu-content>
+    <md-sidenav md-component-id="left">
+        <!--menu section-->
+        <div class="material-background" id="toggle-menu-left-header">
+            <!--menu header section-->
+            <div class="menu-left-header">
+                <img class="user-img" src="img/AIRcableWaves.png">
+
+                <p>
+                    <span class="title">Bluetooth SmartMesh</span>
+                    <br/>
+                    <span class="sub-title">Controller</span>
+                </p>
+            </div><!--end menu header section-->
+        </div> <!--menu content section-->
+        <ion-content id="toggle-menu-left-content">
+
+
+            <!--div class="row menu-item"  ng-click="navigateTo('app.nodelist')">
+                <div class="col-33">
+                    <i class="fa fa-bookmark-o"></i>
+                </div>
+                <div class="col-66">
+                    <span>SmartMesh Devices</span>
+                </div>
+            </div-->
+
+            <!--It will show animation when selecting row.-->
+            <md-list>
+                <md-subheader class="md-warn">Credentials</md-subheader>
+                <md-list-item class="menu-list-item" ng-click="navigateTo('app.settings')">
+                    <md-icon md-svg-src="vpn_key"></md-icon>
+                    <span>Login</span>
+                </md-list-item>
+
+                <md-subheader class="md-warn">Devices</md-subheader>
+                <md-list-item class="menu-list-item" ng-click="navigateTo('app.meshnodes')">
+                    <md-icon md-svg-src="ibeacon"></md-icon>
+                    <span>Mesh Node Devices</span>
+                </md-list-item>
+
+                <md-subheader class="md-warn">Association</md-subheader>
+                <md-list-item class="menu-list-item" ng-click="navigateTo('app.pairing')">
+                    <md-icon md-svg-src="cloud_queue"></md-icon>
+                    <span>Add New Devices</span>
+                </md-list-item>
+
+                <md-subheader class="md-warn">Sniffer</md-subheader>
+                <md-list-item class="menu-list-item" ng-click="navigateTo('app.sniffer')">
+                    <md-icon md-svg-src="mesh"></md-icon>
+                    <span>SmartMesh Sniffer</span>
+                </md-list-item>
+
+                <md-subheader class="md-warn">Exit</md-subheader>
+                <md-list-item class="menu-list-item" ng-click="$window.close()">
+                    <md-icon md-svg-src="exit"></md-icon>
+                    <span>End Application</span>
+                </md-list-item>
+            </md-list>
+            <!--end list section-->
+        </ion-content><!--end menu content section-->
+        <!--end menu section-->
+
+    </md-sidenav>
+</ion-side-menus>

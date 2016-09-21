@@ -1,0 +1,159 @@
+﻿<!--This is a main HTML file of project default page when application start.-->
+<!--All reference of css and javascript lib is here.-->
+
+<!DOCTYPE html>
+<html>
+
+<!--head section This is a place of all reference of css and javascript lib-->
+<head>
+    <!-- Meta section -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="format-detection" content="telephone=no"> <!-- To disable phone number typing.-->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Origin Trial Token, feature = Web Bluetooth, origin = https://aircable.net:8101, expires = 2016-10-18 -->
+    <meta http-equiv="origin-trial" data-feature="Web Bluetooth" data-expires="2016-10-18" content="Ajdm8PqSO/PmfbvdQYlhtpQbHH6JLq2M3ifZ+Uw6eJGrAIMgewPW/rgdrz2ECXle/3WoVkpq5KoS6n9jHkv8eAQAAABYeyJvcmlnaW4iOiAiaHR0cHM6Ly9haXJjYWJsZS5uZXQ6ODEwMSIsICJmZWF0dXJlIjogIldlYkJsdWV0b290aCIsICJleHBpcnkiOiAxNDc2ODE1NTc1fQ==">
+    <!-- end Meta section -->
+    <title></title>
+
+    <!-- Font reference section -->
+    <link href="lib/robotodraft/robotodraft.css">
+    <!-- end Font reference section -->
+
+    <!-- CSS reference section -->
+    <link rel="stylesheet" href="css/ionic.app.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet prefetch" href="lib/angular-material/angular-material.css">
+    <link rel="stylesheet" href="lib/font-awesome-4.4.0/css/font-awesome.css">
+    <link rel="stylesheet" href="css/ng-terminal.css">
+    <!-- material icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- end CSS reference section -->
+
+    <!-- Ionic javascript lib -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- end Ionic javascript lib -->
+
+    <!-- Angular javascript lib -->
+    <script src="lib/angular-messages/angular-messages.js"></script>
+    <script src="lib/angular-aria/angular-aria.js"></script>
+    <script src="lib/angular-material/angular-material.js"></script>
+    <!-- end Angular javascript lib -->
+
+    <!-- Google Map API and key -->
+    <!--script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQQIdpkvFuFsptguvNPNDyNc6c0ZRRdk&callback=initMap"
+            type="text/javascript"></script-->
+    <script src="https://maps.google.com/maps/api/js"></script>
+
+    <!-- Cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="cordova.js"></script>
+    <!-- end Cordova script -->
+
+    <!--ionic framework ngIOS9UIWebViewPatch-->
+    <!--Learn more about ngIOS9UIWebViewPatch at : http://blog.ionic.io/ios-9-potential-breaking-change/-->
+    <script src="lib/ngIOS9UIWebViewPatch/angular-ios9-uiwebview.patch.js"></script>
+    <!--end ionic framework ngIOS9UIWebViewPatch-->
+    <!-- app.js section-->
+    <script src="js/app.js"></script>
+    <!-- end app.js section-->
+
+    <!-- Controllers section-->
+    <script src="js/controllers.js"></script>
+    <script src="js/shared/directives.js"></script>
+    <script src="js/shared/filter.js"></script>
+    <script src="js/shared/controllers.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/modules/asmcrypto.js"></script>
+    <script src="js/modules/mqtt.js"></script>
+    <script src="js/modules/mcp.js"></script>
+    <script src="js/modules/ng-cordova.js"></script>
+    <script src="js/modules/ng-cordova-beacon.js"></script>
+    <script src="js/modules/nosleep.js"></script>
+    <script src="js/modules/scrollglue.js"></script>
+
+    <script src="js/services/CREDfactory.js"></script>
+    <script src="js/services/MQTTfactory.js"></script>
+    <script src="js/services/iBEACONfactory.js"></script>
+    <script src="js/services/MESHfactory.js"></script>
+    <script src="js/services/TXDservice.js"></script>
+
+    <script src="js/controllers/MenuCtrl.js"></script>
+    <script src="js/controllers/NodeListCtrl.js"></script>
+    <script src="js/controllers/SettingsCtrl.js"></script>
+    <script src="js/controllers/LightCtrl.js"></script>
+    <script src="js/controllers/GatewayCtrl.js"></script>
+    <script src="js/controllers/SerialCtrl.js"></script>
+    <script src="js/controllers/AssociationCtrl.js"></script>
+    <script src="js/controllers/FlasherCtrl.js"></script>
+    <script src="js/controllers/SnifferCtrl.js"></script>
+    <script src="js/controllers/FlowCtrl.js"></script>
+    <!-- end Controllers section-->
+
+    <!-- jQuery section-->
+    <script src="lib/jQuery/jquery.js"></script>
+    <!-- end jQuery section-->
+
+</head><!-- end head section-->
+
+<!--body section-->
+<body ng-app="starter" class="hide-native-scroll-y">
+
+<!--Custom Style section-->
+<style type="text/css">
+    {{customStyle}}
+</style><!-- end Custom Style section-->
+
+<!-- Ionic navigation bar section-->
+<ion-nav-view></ion-nav-view>
+<!-- end Ionic navigation bar section-->
+
+</body><!-- end body section-->
+
+
+<noscript>
+    <style type="text/css">
+        .pagecontainer {display:none;}
+    </style>
+    <div class="noscriptmsg">
+        This is the AIRcable Bluetooth® Smart Mesh Web App, it needs Javascript.
+    </div>
+</noscript>
+
+<!-- Angular custom template section-->
+
+<!--Share template confirm-dialog section-->
+<script type="text/ng-template" id="confirm-dialog.html">
+    <md-dialog aria-label="confirm-dialog">
+        <form>
+            <md-dialog-content>
+                <div>
+                    <h2 class="md-title">{{displayOption.title}}</h2>
+
+                    <p>{{displayOption.content}}</p>
+                </div>
+            </md-dialog-content>
+            <div class="md-actions" layout="row">
+                <a class="md-primary-color dialog-action-btn" ng-click="cancel()">
+                    {{displayOption.cancel}}
+                </a>
+                <a class="md-primary-color dialog-action-btn" ng-click="ok()">
+                    {{displayOption.ok}}
+                </a>
+            </div>
+        </form>
+    </md-dialog>
+</script> <!-- end share template confirm-dialog section-->
+
+<!-- Share template toast section-->
+<script type="text/ng-template" id="toast.html">
+    <md-toast class="toast-form">
+        <span flex>{{displayOption.title}}</span>
+    </md-toast>
+</script><!-- end share template toast section-->
+
+<!-- end Angular custom template section-->
+
+</html>

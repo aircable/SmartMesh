@@ -1,0 +1,63 @@
+{
+  "name": "SmartMesh",
+  "version": "0.0.1",
+  "description": "AIRcable SmartMesh Controller",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aircable/SmartMesh.git"
+  },
+  "author": "Wireless Cables Inc. <juergen@aircable.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shprink/ionic-cross-platform-boilerplate/issues"
+  },
+  "homepage": "https://aircable.co",
+  "dependencies": {
+    "connect": "^3.4.1",
+    "express": "^4.13.4",
+    "gulp": "^3.5.6",
+    "gulp-concat": "^2.2.0",
+    "gulp-minify-css": "^0.3.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^2.0.0",
+    "http-proxy": "^1.13.2"
+  },
+  "devDependencies": {
+    "bower": "^1.5.2",
+    "graceful-fs": "^4.1.4",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-sass": "^2.0.0",
+    "gulp-util": "^3.0.6",
+    "ionic-minify": "^2.0.9",
+    "lodash": "^4.13.1",
+    "mozjpeg-stream": "^1.0.3",
+    "shelljs": "^0.3.0",
+    "webpack": "^1.13.1"
+  },
+  "cordovaPlugins": [
+    "cordova-plugin-splashscreen",
+    {
+      "locator": "https://github.com/katzer/cordova-plugin-local-notifications#0.8.1",
+      "id": "de.appplant.cordova.plugin.local-notification"
+    },
+    "ionic-plugin-keyboard@1.0.8",
+    "cordova-plugin-device@1.1.1",
+    "cordova-plugin-console@1.0.2",
+    "cordova-plugin-splashscreen@3.1.0",
+    "cordova-plugin-whitelist@1.2.1",
+    "cordova-plugin-transport-security@0.1.1",
+    "cordova-plugin-inappbrowser@1.1.1",
+    "com.unarin.cordova.beacon",
+    "cordova-plugin-ble-central",
+    "cordova-plugin-x-toast"
+  ],
+  "cordovaPlatforms": [
+    "ios",
+    {
+      "platform": "android",
+      "locator": "browser"
+    },
+    "browser"
+  ]
+}
