@@ -83,29 +83,35 @@ Open the project in Xcode using the generated Xcode project file. Minify compres
 # Serve for Chrome browser
 In order to be able to use Web Bluetooth, the app must be served through a secure web server. There are two ways to do that.
 ```sh
+ionic platform add browser
 ionic build browser --minify
+# get running as a web server
+
+cd platforms/browser
+npm install connect serve-static
+cat >> server.js <<EOF
+var connect = require('connect');
+var serveStatic = require('serve-static');
+connect().use(serveStatic(__dirname)).listen(8080)
+EOF
+# run server
+node server.js
 ```
 Then deploy on your web server. Or run the app under Ionic Lab with debug.
 ```sh
 ionic serve -lc
 ```
-This is a build-in web server that opens up a screen with iOS and Android screen simulations, but it is not a secure server. To do that, use a
-# publish app in the AppStore using XCode
+This is a build-in web server that opens up a screen with iOS and Android screen simulations, but it is not a secure server. To do that, use a https proxy redirector. See file httpsproxy.js and run it with node, after the ionic serve is running.
+```sh
+node httpsproxy.js
+```
+# Building Navive App
+Here are some resources how to publish app in the iTune Connect using XCode. It is the usual detail work Apple wants you to do for screenshots, permissions, entitelements. We found that the app needs PUSH to be enabled. We have not tried to publish on Google Play.
+```sh
 http://virteom.com/how-to-create-an-ipa-file-using-xcode
-# publish on Google Play
 http://ionicframework.com/docs/guide/publishing.html
+```
 
-# get running as a web server
-# ionic platform add browser
-# cd platforms/browser
-# install static
-# npm install connect serve-static
-# create file server.js
-# var connect = require('connect');
-# var serveStatic = require('serve-static');
-# connect().use(serveStatic(__dirname)).listen(8080)
-# run server
-# node server.js &
 
 [Ionic]: <https://www.ionicframework.com/>
 [Ionic Instructions]: <https://www.airpair.com/javascript/posts/a-year-using-ionic-to-build-hybrid-applications>
