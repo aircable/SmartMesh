@@ -56,9 +56,7 @@ browserify mqtt.js -s mqtt > ../../SmartMesh/www/js/mqtt.js
 ```
 
 ### MQTT server
-# building MQTT server
-Run your own MQTT server, or install is via brew on OSX.
-http://goochgooch.co.uk/2014/08/01/building-mosquitto-1-4/
+Run your own MQTT server, or install is via brew on OSX. Building your MQTT server can be a bit challenging. See [Compiling Mosquitto].
 
 ```sh
 /usr/local/opt/mosquitto/sbin/mosquitto -c /usr/local/etc/mosquitto/mqtt.conf
@@ -84,9 +82,14 @@ Open the project in Xcode using the generated Xcode project file. Minify compres
 
 # Serve for Chrome browser
 In order to be able to use Web Bluetooth, the app must be served through a secure web server. There are two ways to do that.
-
+```sh
 ionic build browser --minify
-
+```
+Then deploy on your web server. Or run the app under Ionic Lab with debug.
+```sh
+ionic serve -lc
+```
+This is a build-in web server that opens up a screen with iOS and Android screen simulations, but it is not a secure server. To do that, use a
 # publish app in the AppStore using XCode
 http://virteom.com/how-to-create-an-ipa-file-using-xcode
 # publish on Google Play
@@ -108,3 +111,4 @@ http://ionicframework.com/docs/guide/publishing.html
 [Ionic Instructions]: <https://www.airpair.com/javascript/posts/a-year-using-ionic-to-build-hybrid-applications>
 [Google Icons]: <https://design.google.com/icons/>
 [MQTT JavaScript]: <https://github.com/mqttjs/MQTT.js.git>
+[Compiling Mosquitto]: <http://goochgooch.co.uk/2014/08/01/building-mosquitto-1-4/>
