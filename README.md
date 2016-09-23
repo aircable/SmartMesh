@@ -85,19 +85,9 @@ In order to be able to use Web Bluetooth, the app must be served through a secur
 ```sh
 ionic platform add browser
 ionic build browser --minify
-# get running as a web server
-
-cd platforms/browser
-npm install connect serve-static
-cat >> server.js <<EOF
-var connect = require('connect');
-var serveStatic = require('serve-static');
-connect().use(serveStatic(__dirname)).listen(8080)
-EOF
-# run server
-node server.js
 ```
-Then deploy on your web server. Or run the app under Ionic Lab with debug.
+Then deploy on your web server. 
+The second option is to run the app under Ionic Lab with debug.
 ```sh
 ionic serve -lc
 ```
