@@ -64,15 +64,12 @@ appControllers.filter('flasherfilter', function() {
                 //console.log("serial " + element.device_type + " conf " + element.state);
 
                 try {
-                    // Status and Config,
-                    element.density = element.state[0];
-                    element.duty = element.state[1];
-                    element.triggered = element.state[2];
-                    for( i=3; i<7; i++ ) {
-                        element.epoch = (element.epoch * 256) + element.state[i];
+                    if( element.state ) {
+                        // Status and Config, serial is paired with this (accepting from...)
+                        element.internaltemp =  element.state[0];
+                        element.triggered = element.state[1];
+                        element.edit = false;
                     }
-                    element.edit = false;
-
 
                     //document.getElementById("flasher").style.color = "#ff9933";
 
@@ -88,7 +85,7 @@ appControllers.filter('flasherfilter', function() {
                         }
                     }
                 } catch( e ){
-                    console.log( "flasher="+e )
+                    console.log( "flasher="+e );
                     // should be true when not editable
                     element.edit = true;
                 }

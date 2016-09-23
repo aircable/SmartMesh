@@ -31,9 +31,12 @@ appControllers.filter('flowfilter', function() {
                 //console.log( "flow " + element.device_type + " conf " + element.state );
 
                 try {
-                    // Status and Config, serial is paired with this (accepting from...)
-                    element.flow = element.state[0].toString(2);
-                    element.edit = false;
+                    if( element.state ) {
+                        // Status and Config, serial is paired with this (accepting from...)
+                        element.internaltemp =  element.state[0];
+                        element.flow = element.state;
+                        element.edit = false;
+                    }
                 } catch( e ){
                     // should be true when not editable
                     element.edit = true;
