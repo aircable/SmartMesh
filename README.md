@@ -63,13 +63,13 @@ Run your own MQTT server, or install is via brew on OSX. Building your MQTT serv
 ```
 
 # Splash Screen and App Icon
-Ionic automatically makes all icon and splash screen files for publication of the native app on iOS. Use the icon.psd and splash.psd files and run
+Ionic automatically makes all icon and splash screen files for publication of the native app on iOS. Use the icon.psd and splash.psd files and run:
 ```sh
 ionic resources --icon --splash
 ```
 
 ## Running on IOS 
-We often get into debuggin issues when running the app on the device via Ionic. Like that
+We often get into debugging issues when running the app on the device via Ionic. Like that:
 ```sh
 ionic run ios -device -debug
 ```
