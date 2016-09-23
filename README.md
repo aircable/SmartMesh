@@ -1,6 +1,6 @@
 # Bluetooth SmartMesh Controller
 Implemented with the Ionic framework, the Bluetooth SmartMesh Controller lets you interact with the smart mesh from your iPhone, Android, or from Chrome.
-For limited time, you can try the app from our server in Chrome Canary on OSX or Chrome DEV on Android.
+For limited time, you can try the app from our server in [Chrome Canary] on OSX or [Chrome DEV] on Android.
 
 Just click here: [Run](https://aircable.net:8101)
 
@@ -112,3 +112,5 @@ For more information consult the [Documentation].
 [MQTT JavaScript]: <https://github.com/mqttjs/MQTT.js.git>
 [Compiling Mosquitto]: <http://goochgooch.co.uk/2014/08/01/building-mosquitto-1-4>
 [Documentation]: <https://aircable.co/blog/aircable-news-1/post/bluetooth-smartmesh-15>
+[Chrome Canary]: <https://www.google.com/chrome/browser/canary.html>
+[Chrome DEV]: <https://play.google.com/store/apps/details?id=com.chrome.dev&hl=en>
