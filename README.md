@@ -110,10 +110,12 @@ Here are some resources how to publish app in the iTune Connect using XCode. It 
 ```sh
 http://ionicframework.com/docs/guide/publishing.html
 ```
-
+### More Information
+For more information consult the [Documentation].
 
 [Ionic]: <https://www.ionicframework.com/>
 [Ionic Instructions]: <https://www.airpair.com/javascript/posts/a-year-using-ionic-to-build-hybrid-applications>
-[Google Icons]: <https://design.google.com/icons/>
+[Google Icons]: <https://design.google.com/icons>
 [MQTT JavaScript]: <https://github.com/mqttjs/MQTT.js.git>
-[Compiling Mosquitto]: <http://goochgooch.co.uk/2014/08/01/building-mosquitto-1-4/>
+[Compiling Mosquitto]: <http://goochgooch.co.uk/2014/08/01/building-mosquitto-1-4>
+[Documentation]: <https://aircable.co/blog/aircable-news-1/post/bluetooth-smartmesh-15>
