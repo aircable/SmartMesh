@@ -105,10 +105,9 @@ This is a build-in web server that opens up a screen with iOS and Android screen
 ```sh
 node httpsproxy.js
 ```
-# Building Navive App
+# Building Native App
 Here are some resources how to publish app in the iTune Connect using XCode. It is the usual detail work Apple wants you to do for screenshots, permissions, entitelements. We found that the app needs PUSH to be enabled. We have not tried to publish on Google Play.
 ```sh
-http://virteom.com/how-to-create-an-ipa-file-using-xcode
 http://ionicframework.com/docs/guide/publishing.html
 ```
 
