@@ -1,5 +1,8 @@
 # Bluetooth SmartMesh Controller
 Implemented with the Ionic framework, the Bluetooth SmartMesh Controller lets you interact with the smart mesh from your iPhone, Android, or from Chrome.
+For limited time, you can try the app from our server in Chrome Canary on OSX or Chrome DEV on Android.
+
+Just click here: [Run](https://aircable.net:8101)
 
 ### Setup
 Setup the ionic environment from [Ionic]. See [Ionic Instructions].
