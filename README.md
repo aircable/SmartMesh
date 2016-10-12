@@ -1,5 +1,8 @@
 # Bluetooth SmartMesh Controller
 Implemented with the Ionic framework, the Bluetooth SmartMesh Controller lets you interact with the smart mesh from your iPhone, Android, or from Chrome.
+For limited time, you can try the app from our server in [Chrome Canary] on OSX or [Chrome DEV] on Android.
+
+Just click here: [Run](https://aircable.net:8101)
 
 ### Setup
 Setup the ionic environment from [Ionic]. See [Ionic Instructions].
@@ -56,22 +59,20 @@ browserify mqtt.js -s mqtt > ../../SmartMesh/www/js/mqtt.js
 ```
 
 ### MQTT server
-# building MQTT server
-Run your own MQTT server, or install is via brew on OSX.
-http://goochgooch.co.uk/2014/08/01/building-mosquitto-1-4/
+Run your own MQTT server, or install is via brew on OSX. Building your MQTT server can be a bit challenging. See [Compiling Mosquitto].
 
 ```sh
 /usr/local/opt/mosquitto/sbin/mosquitto -c /usr/local/etc/mosquitto/mqtt.conf
 ```
 
 # Splash Screen and App Icon
-Ionic automatically makes all icon and splash screen files for publication of the native app on iOS. Use the icon.psd and splash.psd files and run
+Ionic automatically makes all icon and splash screen files for publication of the native app on iOS. Use the icon.psd and splash.psd files and run:
 ```sh
 ionic resources --icon --splash
 ```
 
 ## Running on IOS 
-We often get into debuggin issues when running the app on the device via Ionic. Like that
+We often get into debugging issues when running the app on the device via Ionic. Like that:
 ```sh
 ionic run ios -device -debug
 ```
@@ -84,27 +85,32 @@ Open the project in Xcode using the generated Xcode project file. Minify compres
 
 # Serve for Chrome browser
 In order to be able to use Web Bluetooth, the app must be served through a secure web server. There are two ways to do that.
-
+```sh
+ionic platform add browser
 ionic build browser --minify
-
-# publish app in the AppStore using XCode
-http://virteom.com/how-to-create-an-ipa-file-using-xcode
-# publish on Google Play
+```
+Then deploy on your web server. 
+The second option is to run the app under Ionic Lab with debug.
+```sh
+ionic serve -lc
+```
+This is a build-in web server that opens up a screen with iOS and Android screen simulations, but it is not a secure server. To do that, use a https proxy redirector. See file httpsproxy.js and run it with node, after the ionic serve is running.
+```sh
+node httpsproxy.js
+```
+# Building Native App
+Here are some resources how to publish app in the iTune Connect using XCode. It is the usual detail work Apple wants you to do for screenshots, permissions, entitelements. We found that the app needs PUSH to be enabled. We have not tried to publish on Google Play.
+```sh
 http://ionicframework.com/docs/guide/publishing.html
-
-# get running as a web server
-# ionic platform add browser
-# cd platforms/browser
-# install static
-# npm install connect serve-static
-# create file server.js
-# var connect = require('connect');
-# var serveStatic = require('serve-static');
-# connect().use(serveStatic(__dirname)).listen(8080)
-# run server
-# node server.js &
+```
+### More Information
+For more information consult the [Documentation].
 
 [Ionic]: <https://www.ionicframework.com/>
 [Ionic Instructions]: <https://www.airpair.com/javascript/posts/a-year-using-ionic-to-build-hybrid-applications>
-[Google Icons]: <https://design.google.com/icons/>
+[Google Icons]: <https://design.google.com/icons>
 [MQTT JavaScript]: <https://github.com/mqttjs/MQTT.js.git>
+[Compiling Mosquitto]: <http://goochgooch.co.uk/2014/08/01/building-mosquitto-1-4>
+[Documentation]: <https://aircable.co/blog/aircable-news-1/post/bluetooth-smartmesh-15>
+[Chrome Canary]: <https://www.google.com/chrome/browser/canary.html>
+[Chrome DEV]: <https://play.google.com/store/apps/details?id=com.chrome.dev&hl=en>
