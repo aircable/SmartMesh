@@ -263,10 +263,12 @@ appServices.factory('MESH', function( $rootScope, CRED, $mdToast, $q ) {
                 } catch( e ){}
                 // try to connect again
                 if( bluetoothDevice ) {
-                    connect();
-                } else {
-                    meshservice.scan( credentials );
+                    bluetoothDevice = null;
                 }
+//                    connect();
+//                } else {
+                    meshservice.scan( credentials );
+//                }
             }
 
             var MCPPpkt = null;
@@ -310,41 +312,65 @@ appServices.factory('MESH', function( $rootScope, CRED, $mdToast, $q ) {
             if( mcp_pkt.length > ATT_WRITE_MAX_DATALEN ) {
                 //console.log( 'mcp '+ typeof mcp_pkt + mcp_pkt );
                 var first_part = mcp_pkt.subarray( 0, ATT_WRITE_MAX_DATALEN );
-                //console.log( 'write ' + first_part );
                 MCPPchar.writeValue( first_part )
                     .then( function(){
+                        console.log( 'writeChar1 ' + first_part );
                         // remove the part we have sent
                         mcp_pkt = mcp_pkt.subarray( ATT_WRITE_MAX_DATALEN, mcp_pkt.length );
                         // success
                         try {
                             document.getElementById("bluetooth-logo").style.display = '';
                         } catch( e ){}
+
+                        MCPchar.writeValue( mcp_pkt )
+                            .then( function() {
+                                console.log( 'writeChar2 ' + mcp_pkt );
+                                // success
+                                try {
+                                    document.getElementById("bluetooth-logo").style.display = '';
+                                } catch( e ){}
+                            })
+                            .catch( function ( e ) {
+                                console.log("writeChar2 " + e );
+                                try {
+                                    document.getElementById("bluetooth-logo").style.display = 'none';
+                                } catch( e ){}
+                                // just try again
+                                MCPchar.writeValue( mcp_pkt )
+                                    .then( function() {
+                                        console.log( 'writeChar2 second ok')
+                                })
+                            });
                     })
                     .catch( function ( e ) {
                         // maybe try again....
                         console.log('writeChar1 ' + e );
                         // success
                         try {
-                            document.getElementById("bluetooth-logo").style.display = '';
+                            document.getElementById("bluetooth-logo").style.display = 'none';
                         } catch( e ){}
+                        // stop here
+                        return false;
+                    });
+            } else {
+
+                MCPchar.writeValue(mcp_pkt)
+                    .then(function () {
+                        console.log('writeChar0 ' + mcp_pkt);
+                        // success
+                        try {
+                            document.getElementById("bluetooth-logo").style.display = '';
+                        } catch (e) {
+                        }
+                    })
+                    .catch(function (e) {
+                        console.log("writeChar0 " + e);
+                        try {
+                            document.getElementById("bluetooth-logo").style.display = 'none';
+                        } catch (e) {
+                        }
                     });
             }
-
-            //console.log( 'rest ' + mcp_pkt );
-            MCPchar.writeValue( mcp_pkt )
-                .then( function() {
-                    // success
-                    try {
-                        document.getElementById("bluetooth-logo").style.display = '';
-                    } catch( e ){}
-                })
-                .catch( function ( e ) {
-                    console.log("writeChar2 " + e );
-                    try {
-                        document.getElementById("bluetooth-logo").style.display = 'none';
-                    } catch( e ){}
-            });
-
         }
     };
 

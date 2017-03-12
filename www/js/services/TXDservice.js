@@ -97,7 +97,7 @@ appServices.factory('TXD', function ( $timeout, CRED, MCP, MQTT, MESH, IBEACON )
         string_message: function( destination, seq, data, len, density ) {
 
             // create MULTIBLOCK command from data, max 8 bytes
-            var MCP_MULTIBLOCK = 0x75;
+            var MCP_MULTIBLOCK = 0x15;
 
             meshblk = new Uint8Array( 2+len );
             meshblk[0] = MCP_MULTIBLOCK;

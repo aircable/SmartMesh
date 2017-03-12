@@ -12,20 +12,70 @@ appServices.factory('MCP', function ( $rootScope ) {
 
     var known_mcp = [
         { name: 'MCP_WATCHDOG_MESSAGE', mcp: 0x00 },
-        // tx/rx commands 0x04-09
-        { name: 'MCP_UUID', mcp: 0x0A },
+        { name: 'MCP_WATCHDOG_SET_INTERVAL', mcp: 0x01 },
+        { name: 'MCP_WATCHDOG_INTERVAL', mcp: 0x02 }, // watchdog interval
+        // config model
+        { name: 'MCP_CONFIG_LAST_SEQUENCE_NUMBER', mcp: 0x03 },
+        { name: 'MCP_CONFIG_RESET_DEVICE', mcp: 0x04 },
+        { name: 'MCP_CONFIG_SET_DEVICE_IDENTIFIER', mcp: 0x05 }, // not usually used
+        { name: 'MCP_CONFIG_SET_PARAMETERS', mcp: 0x06 }, // set txInterval, txDuration, txPower, TTL...
+        { name: 'MCP_CONFIG_GET_PARAMETERS', mcp: 0x07 },
+        { name: 'MCP_CONFIG_PARAMETERS', mcp: 0x08 }, // configuration parameters
+        { name: 'MCP_CONFIG_DISCOVER_DEVICE', mcp: 0x09 }, // sent to everyone
+        { name: 'MCP_CONFIG_DEVICE_IDENTIFIER', mcp: 0x0A }, // answer the discover
+        { name: 'MCP_CONFIG_GET_INFO', mcp: 0x0B }, // ask for device config
+        { name: 'MCP_CONFIG_INFO', mcp: 0x0C }, // current device information
+        { name: 'MCP_CONFIG_SET_MESSAGE_PARAMS', mcp: 0x12 },
+        { name: 'MCP_CONFIG_GET_MESSAGE_PARAMS', mcp: 0x13 },
+        { name: 'MCP_CONFIG_MESSAGE_PARAMS', mcp: 0x14 },
+        // AIRCABLE config blocks
+        { name: 'MCP_DATA_MULTIBLOCK', mcp: 0x15 },	// serial data transmission, seq, length, 0-8 data
+        { name: 'MCP_DATA_RESEND', mcp: 0x16 },	// resend request sequenceno
+        { name: 'MCP_CONFIG_BLOCK', mcp: 0x17 },	// config data block
+
         // group model
         { name: 'MCP_GET_NUMBER_OF_MODEL_GROUPID', mcp: 0x0D },
         { name: 'MCP_GROUP_NUMBER_OF_MODEL_GROUPS', mcp: 0x0E },
         { name: 'MCP_SET_MODEL_GROUPID', mcp: 0x0F },
         { name: 'MCP_GET_MODEL_GROUPID', mcp: 0x10 },
         { name: 'MCP_GROUP_SET_MODEL_GROUPID', mcp: 0x11 },
+        // sensor model
+        { name: 'SENSOR_GET_TYPES', mcp: 0x20 }, // get types
+        { name: 'SENSOR_TYPES', mcp: 0x21 }, // send types and more ...
+
+        // actuator model
+        { name: 'ACTUATOR_GET_TYPES', mcp: 0x30 }, // 0x30-0x35
+
+        // asset model
+        { name: 'ASSET_SET_STATE', mcp: 0x40 }, // configure the asset: tx, interval, destination
+        { name: 'ASSET_GET_STATE', mcp: 0x41 }, // gets state of the asses
+        { name: 'ASSET_STATE', mcp: 0x42 }, // asses state message
+        { name: 'ASSET_ANNOUNCE', mcp: 0x43 }, // asset announcement, contains asset info
+
+        // asset model
+        { name: 'TRACKER_FIND', mcp: 0x44 }, // find an Asset
+        { name: 'TRACKER_FOUND', mcp: 0x45 }, // asset found
+        { name: 'TRACKER_REPORT', mcp: 0x46 }, // asset report
+        { name: 'TRACKER_CLEAR_CACHE', mcp: 0x47 }, // clear tracker cache
+        { name: 'TRACKER_SET_PROXIMITY_CONFIG', mcp: 0x48 }, // set tracker proximity config
+
+        // action model
+        { name: 'ACTION_SET_ACTION', mcp: 0x50 }, // 0x50-0x56
+
+        // beacon model
+        { name: 'BEACON_SET_STATUS', mcp: 0x60 }, // beacon model 0x60-0x6f
+
+        // time model
+        { name: 'TIME_SET_STATE', mcp: 0x75 }, // set Time Broadcast Interval
+        { name: 'TIME_GET_STATE', mcp: 0x76 }, // get Time Broadcast Interval
+        { name: 'TIME_STATE', mcp: 0x77 }, // set time broadcast interval
+        { name: 'TIME_BROADCAST', mcp: 0x7F }, // sync time with this
         // data model
         { name: 'MCP_DATA_STREAM', mcp: 0x70 },
+        { name: 'MCP_DATA_STREAM_SEND', mcp: 0x71 }, // sending data
+        { name: 'MCP_DATA_STREAM_RECEIVED', mcp: 0x72 }, // ack data received
         { name: 'MCP_DATA_BLOCK', mcp: 0x73 },
-        { name: 'MCP_DATA_MULTIBLOCK', mcp: 0x75 },
-        { name: 'MCP_DATA_RESEND', mcp: 0x76 },
-        { name: 'MCP_CONFIG', mcp: 0x77 },
+
         // firmware model
         { name: 'MCP_GET_FIRMWARE_VERSION', mcp: 0x78 },
         { name: 'MCP_FIRMWARE_VERSION_INFO', mcp: 0x79 },
@@ -40,13 +90,11 @@ appServices.factory('MCP', function ( $rootScope ) {
         // light and power
         { name: 'MCP_POWER_SET_STATE', mcp: 0x89 },
         { name: 'MCP_LIGHT_SET_RGB', mcp: 0x8A },
-        // ping attention
-        // sensor actuator
-        { name: 'MCP_SENSOR_32', mcp: 0x20 },
-        { name: 'MCP_SENSOR_39', mcp: 0x27 },
-        { name: 'MCP_SENSOR_217', mcp: 0xD9 },
-        { name: 'MCP_SENSOR_1', mcp: 0xDC },
-        { name: 'MCP_SENSOR_2', mcp: 0xDD },
+
+        // largeObjectTransfer model
+        { name: 'MCP_LARGEOBJECTTRANSFER_ANNOUNCE', mcp: 0x1A },
+        { name: 'MCP_LARGEOBJECTTRANSFER_INTEREST', mcp: 0xEF }, // ready to receive
+
     ];
 
     function getMCPbyID( id ) {

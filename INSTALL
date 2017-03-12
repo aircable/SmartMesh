@@ -46,7 +46,7 @@ browserify mqtt.js -s mqtt > ../../ionic-material-mesh/www/js/mqtt.js
 #install MQTT server and run
 # building MQTT server
 http://goochgooch.co.uk/2014/08/01/building-mosquitto-1-4/
-# or installing via brew
+# or installing via brew on OSX
 #run
 /usr/local/opt/mosquitto/sbin/mosquitto -c /usr/local/etc/mosquitto/mqtt.conf
 

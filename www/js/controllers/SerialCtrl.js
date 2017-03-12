@@ -4,23 +4,25 @@
 appControllers.controller('serialCtrl', function( $scope, $rootScope, $state, $stateParams, $timeout,
                                                   TXD, CRED ) {
 
-    const MCP_CONFIG = 0x77;
+    const MCP_CONFIG = 0x17;
 
     $scope.credentials = CRED.credentials;
 
     $scope.baudid = $scope.device.baud;
     $scope.baudlist = [
-                { id: 3, speed: '9600' },
-                { id: 4, speed: '19200' },
-                { id: 5, speed: '38400' },
-                { id: 6, speed: '57600' },
-                { id: 8, speed: '115200' } ];
+        { id: 1, speed: '2400' },
+        { id: 3, speed: '9600' },
+        { id: 4, speed: '19200' },
+        { id: 5, speed: '38400' },
+        { id: 6, speed: '57600' },
+        { id: 8, speed: '115200' } ];
 
     console.log("serialCtrl "+$scope.device.source);
 
     // start terminal
     $scope.navigateTo = function( targetPage, objectData ) {
         console.log("nav "+objectData.source );
+        CRED.setSerialFilter( objectData.source );
         $state.go( targetPage, {
             device: objectData
         });
@@ -63,7 +65,7 @@ appControllers.controller('serialCtrl', function( $scope, $rootScope, $state, $s
             $scope.device.group_0 -= 0x8000;
         }
 
-        var newconf = new Uint8Array( 11 ); // full config pkg
+        var newconf = new Uint8Array( 8 ); // full config pkg
         // AIRcable SerialMesh config block
         // first packet: name 01...
         // second 02 02 64 ff 05 00 00 00 00 00
@@ -77,16 +79,17 @@ appControllers.controller('serialCtrl', function( $scope, $rootScope, $state, $s
         newconf[5] = $scope.device.group_0 % 256;
         newconf[6] = Math.floor( $scope.device.group_0 / 256 );
         newconf[7] = 0;
-        newconf[8] = 0;
-        newconf[9] = 0;
-        newconf[10] = 0;
+        //newconf[8] = 0;
+        //newconf[9] = 0;
+        //newconf[10] = 0;
 
         console.log("config group "+$scope.device.group_0+" on "+$scope.device.source);
-        TXD.transmit_mesh( $scope.device.source, newconf, 2 );
+        TXD.transmit_mesh( $scope.device.source, newconf, 3 );
 
         // send finish config after 500ms
         clearTimeout( ConfigTimer );
-        ConfigTimer = setTimeout( secondConfig, 250 );
+        ConfigTimer = setTimeout( finishConfig, 250 );
+        //ConfigTimer = setTimeout( secondConfig, 250 );
     }
 });
 

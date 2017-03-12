@@ -18,14 +18,15 @@ appControllers.controller('nodeListCtrl', function( $scope, $rootScope, $timeout
     const MCP_PING_REQUEST = 0;
     const MCP_PING_RESPONSE = 1;
     const MCP_PING_STATUS = 2;    // and beyond is status
-    const MCP_CONFIG = 0x77;      // config packet
+    const MCP_CONFIG = 0x17;      // config packet
     const MCP_CONFIG_NAME = 1;    // first packet is name
     const MCP_CONFIG_DATA = 2;    // second is fixed config data
     const MCP_LIGHT_STATUS = 8;    // subcode 8 is response from light getting command
     const MCP_LIGHT_SETLEVEL_NOACK = 0;    // subcode set level command with ack, 1
     const MCP_LIGHT_SETLEVEL = 1;    // subcode set level command with ack, 2 bytes payload
     const MCP_LIGHT_SETWHITE = 10; // set level, no ack, one byte payload
-    const MCP_MULTIBLOCK = 0x75; // sequence and length
+    const MCP_MULTIBLOCK = 0x15; // sequence and length
+    const MCP_TRACKER_REPORT = 0x46;
 
 
     var credentials = CRED.credentials;
@@ -65,6 +66,12 @@ appControllers.controller('nodeListCtrl', function( $scope, $rootScope, $timeout
             //console.log( "start ping "+$scope.devices[i].source );
             $scope.devices[i].edit = true; // show it grayed out
             sendPing( $scope.devices[i].source );
+        }
+
+        // start with settings if we get here by browser restart
+        if( !CRED.credentials.hash ) {
+            //console.log( "no creds" );
+            $state.go( 'app.settings' );
         }
 
 
@@ -124,13 +131,14 @@ appControllers.controller('nodeListCtrl', function( $scope, $rootScope, $timeout
         newdevice.device_type = 0x1061;
         newdevice.lightlevel = 0;
         newdevice.newid = "8001";
+        newdevice.age = CRED.credentials.age;
         console.log( "new CSRlight");
+
         $scope.devices.push(newdevice);
         $timeout(function () {
             try{ $scope.$apply(); } catch(e){}
         });
         // update the device in localstorage
-        newdevice.age = 0;
         CRED.updateDevice( newdevice );
 
     };
@@ -464,7 +472,7 @@ appControllers.controller('nodeListCtrl', function( $scope, $rootScope, $timeout
             // remove data object since we processed all
             delete meshdata.data;
             //console.log( "ping from "+meshdata.source+" type "+meshdata.device_type );
-            storeDeviceStatus( meshdata, 0 );
+            storeDeviceStatus( meshdata, 0, 0 );
 
 
         } else if(( meshdata.data[0] === MCP_PING )
@@ -499,7 +507,7 @@ appControllers.controller('nodeListCtrl', function( $scope, $rootScope, $timeout
             // remove data object since we processed all
             //console.log("name " + meshdata.name);
             delete meshdata.data;
-            storeDeviceStatus( meshdata, 0 );
+            storeDeviceStatus( meshdata, 0, 0 );
 
         } else if(( meshdata.data[0] == MCP_CONFIG )&&
             ( meshdata.data[1] == MCP_CONFIG_DATA )){  // 2
@@ -509,14 +517,14 @@ appControllers.controller('nodeListCtrl', function( $scope, $rootScope, $timeout
             meshdata.duty_cycle = meshdata.data[3];
             meshdata.behavior = meshdata.data[4];
             // groups
-            meshdata.group_0 = meshdata.data[5] + ( meshdata.data[6] * 256 )
-            meshdata.group_1 = meshdata.data[7] + ( meshdata.data[8] * 256 )
-            meshdata.group_2 = meshdata.data[9] + ( meshdata.data[10] * 256 )
+            meshdata.group_0 = meshdata.data[5] + ( meshdata.data[6] * 256 );
+            meshdata.group_1 = meshdata.data[7] + ( meshdata.data[8] * 256 );
+            meshdata.group_2 = meshdata.data[9] + ( meshdata.data[10] * 256 );
 
             // remove data object since we processed all
             delete meshdata.data;
             //console.log("state "+angular.toJson(meshdata));
-            storeDeviceStatus( meshdata, 0 );
+            storeDeviceStatus( meshdata, 0, 0 );
 
 
         } else if(( meshdata.data[0] == MCP_CONFIG )&&
@@ -540,7 +548,7 @@ appControllers.controller('nodeListCtrl', function( $scope, $rootScope, $timeout
 
                 console.log("conf " + config_msg.source + " idx " + seq + " len " + len + " " + angular.toJson(config_msg.conf));
                 // remove data object since we processed all
-                storeDeviceStatus(config_msg, len, seq);
+                storeDeviceStatus( config_msg, len, seq );
 
             }
 
@@ -566,7 +574,8 @@ appControllers.controller('nodeListCtrl', function( $scope, $rootScope, $timeout
                 sermsg += String.fromCharCode(meshdata.data[i]);
             }
             console.log( "send "+meshdata.data[1]+" ser "+sermsg);
-            CRED.pushSerialData( sermsg );
+            // push to array: data, source, seq
+            CRED.pushSerialData( sermsg, meshdata.source-1, meshdata.data[1] );
 
             last_serial_sequence = meshdata.data[1];
             // update the screen with the devices content, ngrepeat
@@ -574,8 +583,18 @@ appControllers.controller('nodeListCtrl', function( $scope, $rootScope, $timeout
                 try{ $scope.$apply(); } catch(e){}
             });
 
+        } else if( meshdata.data[0] === MCP_TRACKER_REPORT ) {
+            meshdata.device_type = 0x1111;
+            meshdata.owner = config_msg.source;
+            meshdata.asset = meshdata.data[1] + ( meshdata.data[2] * 256 );
+            meshdata.distance = meshdata.data[3] + ( meshdata.data[4] * 256 );
+            // remove data object since we processed all
+            delete meshdata.data;
+            //console.log("state "+angular.toJson(meshdata));
+            storeDeviceStatus( meshdata, 0, 0 );
+
         } else {
-            console.log("mcp" + meshdata.data[0].toString(16)+" sub "+meshdata.data[1].toString(10)+" dest "+meshdata.dest);
+            console.log("mcp" + meshdata.data[0].toString(16)+" sub "+meshdata.data[1].toString(10)+" src 0x"+meshdata.source.toString(16));
         }
     }
 

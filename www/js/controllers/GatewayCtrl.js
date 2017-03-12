@@ -131,7 +131,7 @@ appControllers.controller('gatewayDetailCtrl', function ($scope, $state, $stateP
 
     // writes 8 bytes of string data to the sequence block
     function writeBlockToSequence( seq, data, density ) {
-        var MCP_MULTIBLOCK = 0x75;
+        var MCP_MULTIBLOCK = 0x15;
 
         if( seq == 0 ){
             //create new config_sequence

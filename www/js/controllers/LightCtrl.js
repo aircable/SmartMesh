@@ -155,7 +155,12 @@ appControllers.filter('lightfilter', function() {
                         element.nightlight = config[2];
                         element.threshold = config[3];
                         element.offtime = config[4];
-                        element.porch = config[5];
+                        if( config[5] > 0 ) {
+                            element.porch = true;
+                        } else {
+                            element.porch = false;
+                        }
+
                     }
 
                 } catch( e ){
@@ -223,7 +228,7 @@ appControllers.filter('lightfilter3', function() {
 // Controller of Note Detail Page.
 appControllers.controller('lightDetailCtrl', function ($scope, $state, $stateParams, MCP, MESH, MQTT, IBEACON, CRED, TXD ) {
 
-    const MCP_CONFIG = 0x77;
+    const MCP_CONFIG = 0x17;
 
     var credentials = CRED.credentials;
 
@@ -256,23 +261,6 @@ appControllers.controller('lightDetailCtrl', function ($scope, $state, $statePar
     };// End getNoteData.
 
 
-    // sending a BLOCK command with string content
-    function sendConfigString( command, destination ) {
-
-        var MCP_BLOCK = 0x73;         // for status messages
-
-        // send an iBeacon with BLOCK command as string
-        meshcmd = new Uint8Array( command.length + 1 );
-        meshcmd[0] = MCP_BLOCK;
-        for( var i=0, j=command.length; i < j; ++i ) {
-            meshcmd[ i+1 ] = command.charCodeAt(i);
-        }
-        meshcmd[i + 1] = 0;
-
-        TXD.transmit_mesh( destination, meshcmd, 1 );
-
-    }
-
 
 
     var ConfigTimer;
@@ -297,7 +285,11 @@ appControllers.controller('lightDetailCtrl', function ($scope, $state, $statePar
         newconf[4] = $scope.device.nightlight;
         newconf[5] = $scope.device.threshold;
         newconf[6] = $scope.device.offtimer;
-        newconf[7] = $scope.device.porch;
+        if( $scope.device.porch ) {
+            newconf[7] = 1;
+        } else {
+            newconf[7] = 0;
+        }
 
         TXD.transmit_mesh( $scope.device.source, newconf, 2 );
 

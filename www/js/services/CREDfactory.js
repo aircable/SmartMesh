@@ -106,8 +106,11 @@ appServices.factory('CRED', function ( NVM, $window ) {
         groups: [],
         // serial device message, global variable
         serialdata: [],
+        serialfilter: 0,
+        lastserialseq: 0,
 
-        // function REMOVE
+
+    // function REMOVE
         removeCredentials: function() {
 
             // delete whole storage, with all devices
@@ -115,6 +118,7 @@ appServices.factory('CRED', function ( NVM, $window ) {
             this.devices.length = 0;
             this.groups.length = 0;
             this.serialdata.length = 0;
+            this.serialfilter = 0;
             this.credentials = {};
 
             this.getCredentials();
@@ -217,6 +221,10 @@ appServices.factory('CRED', function ( NVM, $window ) {
             this.groups.length = 0;
             getGroups( this.groups );
 
+            // initialize serial data
+            this.serialdata.length = 0;
+            this.serialfilter = 0;
+
         },
 
         // function SET, gets a 32 byte Uint8Array
@@ -236,14 +244,23 @@ appServices.factory('CRED', function ( NVM, $window ) {
                 var for_store = new Uint8Array( 16 );
                 // get last 16 bytes form the hash in reverse order
                 for (i = 0; i < 16; i++) {
-                    // make string for printing
-                    this.credentials.hashstr += fullhash[31 - i].toString(16);
                     // reverse the elements, keep as array
                     this.credentials.hash[i] = fullhash[31 - i];
                     // encrypt the network key for storage
                     for_store[i] = fullhash[31 - i] ^ generated_key[i];
                 }
+                for( i=0; i<16; i+=2 ) {
+                    // make string for printing, swap bytes
+                    if (fullhash[31 - i - 1].toString(16) < 16) {
+                        this.credentials.hashstr += "0";
+                    }
+                    this.credentials.hashstr += fullhash[31 - i - 1].toString(16);
 
+                    if (fullhash[31 - i].toString(16) < 16) {
+                        this.credentials.hashstr += "0";
+                    }
+                    this.credentials.hashstr += fullhash[31 - i].toString(16);
+                }
                 // save Uint8Array as JSON string, we lose the type information
                 NVM.set( 'networkkey', for_store );
                 console.log( "saved key " + angular.toJson( this.credentials.hash ));
@@ -322,9 +339,26 @@ appServices.factory('CRED', function ( NVM, $window ) {
             console.log( "group "+groupkey );
         },
 
+        setSerialFilter: function( src ) {
+            console.log( "setfilter "+ src );
+            this.serialfilter = src;
+        },
 
-        pushSerialData: function( data ) {
+        pushSerialData: function( data, source, seq ) {
+
+            if( source != this.serialfilter ) {
+                // filter serial messages we don't want to see
+                console.log( "serialfilter "+source+" showing "+this.serialfilter )
+                return;
+            }
+
             var top = this.serialdata.pop();
+
+            // check if we lost data, then just print a '.'
+            if( seq != this.lastserialseq+1 ){
+                this.serialdata.push( '.' );
+            }
+            this.lastserialseq = seq;
 
             for( i=0; i<data.length; i++ ){
                 if(( data[i].match(/\r/) )||( data[i].match(/\n/) )) {

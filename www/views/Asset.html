@@ -1,0 +1,22 @@
+<md-list-item>
+    <md-card>
+        <md-card-content>
+            <div ng-controller="assetCtrl" ng-cloak>
+                <md-content layout="column">
+                    <p>
+                        All available assets:
+                    </p>
+                    <md-virtual-repeat-container id="horizontal-container" md-orient-horizontal>
+                        <div md-virtual-repeat="device in devices | assetfilter"
+                             class="repeated-item" flex>
+                            {{device.asset.toString(16).toUpperCase()}}</br>
+                            {{device.owner.toString(16).toUpperCase()}}</br>
+                            {{device.distance.toString(16).toUpperCase()}}
+                        </div>
+                    </md-virtual-repeat-container>
+                </md-content>
+            </div>
+        </md-card-content>
+    </md-card>
+    <div class="overlay"></div>
+</md-list-item>
